@@ -4,7 +4,7 @@ from opendbc.car.common.conversions import Conversions as CV
 from opendbc.car.interfaces import CarInterfaceBase
 from opendbc.car.mazda.carcontroller import CarController
 from opendbc.car.mazda.carstate import CarState
-from opendbc.car.mazda.values import CAR, LKAS_LIMITS
+from opendbc.car.mazda.values import CAR, LKAS_LIMITS, MazdaFlags
 
 
 class CarInterface(CarInterfaceBase):
@@ -26,6 +26,9 @@ class CarInterface(CarInterfaceBase):
 
     if candidate not in (CAR.MAZDA_CX5_2022,):
       ret.minSteerSpeed = LKAS_LIMITS.DISABLE_SPEED * CV.KPH_TO_MS
+
+    if 0x477 in fingerprint[0]:  # BSM in mazda_2017.dbc
+      ret.flags |= MazdaFlags.HAS_BSM.value
 
     ret.centerToFront = ret.wheelbase * 0.41
 

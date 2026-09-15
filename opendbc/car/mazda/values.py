@@ -37,6 +37,9 @@ class MazdaCarSpecs(CarSpecs):
 
 
 class MazdaFlags(IntFlag):
+  # Detected flags
+  HAS_BSM = 2  # blind spot monitoring
+
   # Static flags
   # Gen 1 hardware: same CAN messages and same camera
   GEN1 = 1
